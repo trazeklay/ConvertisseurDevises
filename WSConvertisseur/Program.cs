@@ -7,6 +7,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddSwaggerGen(doc =>
+{
+    var xmlFile = Path.ChangeExtension(typeof(Program).Assembly.Location, ".xml");
+    doc.IncludeXmlComments(xmlFile);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
