@@ -21,16 +21,17 @@
 		}
 
 		private double taux;
-
 		public double Taux
 		{
 			get { return taux; }
 			set { taux = value; }
 		}
 
-		public Devise()
+		public Devise(int id, string? nomDevise, double taux)
 		{
-
+			ID = id;
+			NomDevise = nomDevise;
+			Taux = taux;
 		}
 	}
 }
