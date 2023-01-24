@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WSConvertisseur.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -37,20 +38,41 @@ namespace WSConvertisseur.Controllers
 
         // POST api/<DevisesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<Devise> Post([FromBody] Devise devise)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            LesDevises.Add(devise);
+            return CreatedAtRoute("GetDevise", new { id = devise.ID }, devise);
         }
 
         // PUT api/<DevisesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult Put(int id, [FromBody] Devise devise)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            if (id != devise.ID)
+                return BadRequest();
+
+            int index = LesDevises.FindIndex((d) => d.ID == id);
+
+            if (index < 0)
+                return NotFound();
+
+            LesDevises[index] = devise;
+            return NoContent();
         }
 
         // DELETE api/<DevisesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<Devise> Delete(int id)
         {
+            Devise? devise = LesDevises.FirstOrDefault((d) => d.ID == id);
+            if (devise is null)
+                return NotFound();
+            LesDevises.Remove(devise);
+            return devise;
         }
 
         public DevisesController()
