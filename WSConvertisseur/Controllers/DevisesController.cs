@@ -18,7 +18,10 @@ namespace WSConvertisseur.Controllers
             set { lesDevises = value; }
         }
 
-
+        /// <summary>
+        /// Get all currencies
+        /// </summary>
+        /// <returns>The list of every currencies</returns>
         // GET: api/<DevisesController>
         [HttpGet]
         public IEnumerable<Devise> GetAll()
@@ -26,6 +29,13 @@ namespace WSConvertisseur.Controllers
             return LesDevises;
         }
 
+        /// <summary>
+        /// Get a single currency
+        /// </summary>
+        /// <param name="id">The id of the currency</param>
+        /// <returns>Http response</returns>
+        /// <response code="200">When the currency is found</response>
+        /// <response code="404">When the currency is not found</response>
         // GET api/<DevisesController>/5
         [HttpGet("{id}", Name = "GetDevise")]
         public ActionResult<Devise> GetById([FromRoute]int id)
@@ -36,6 +46,13 @@ namespace WSConvertisseur.Controllers
             return devise;
         }
 
+        /// <summary>
+        /// Adds a currency to the currencies
+        /// </summary>
+        /// <param name="devise">The currency that you want to add</param>
+        /// <returns>Http response</returns>
+        /// <response code="201">When the currency is successfully added to the list</response>
+        /// <response code="400">When the currency is not found</response>
         // POST api/<DevisesController>
         [HttpPost]
         public ActionResult<Devise> Post([FromBody] Devise devise)
@@ -46,6 +63,14 @@ namespace WSConvertisseur.Controllers
             return CreatedAtRoute("GetDevise", new { id = devise.ID }, devise);
         }
 
+        /// <summary>
+        /// Modifies a currency in the list at a position
+        /// </summary>
+        /// <param name="id">The position</param>
+        /// <param name="devise">The currency</param>
+        /// <returns>HTTP response</returns>
+        /// <response code="404">When the currency is not found or could not be modifieds</response>
+        /// <response code="400">Put method successfull</response>
         // PUT api/<DevisesController>/5
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] Devise devise)
@@ -64,6 +89,12 @@ namespace WSConvertisseur.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Deletes a currency from the list
+        /// </summary>
+        /// <param name="id">The id of the currency that you want to delete</param>
+        /// <returns>HTTP Response</returns>
+        /// <response code="400">Put method successfull</response>
         // DELETE api/<DevisesController>/5
         [HttpDelete("{id}")]
         public ActionResult<Devise> Delete(int id)
@@ -75,6 +106,9 @@ namespace WSConvertisseur.Controllers
             return devise;
         }
 
+        /// <summary>
+        /// Le constructeur
+        /// </summary>
         public DevisesController()
         {
             LesDevises = new List<Devise>()
