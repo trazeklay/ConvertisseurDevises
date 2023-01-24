@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WSConvertisseur.Models;
+using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,10 +26,13 @@ namespace WSConvertisseur.Controllers
         }
 
         // GET api/<DevisesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetDevise")]
+        public ActionResult<Devise> GetById([FromRoute]int id)
         {
-            return "value";
+            Devise? devise = LesDevises.FirstOrDefault((d) => d.ID == id);
+            if (devise is null)
+                return NotFound();
+            return devise;
         }
 
         // POST api/<DevisesController>
