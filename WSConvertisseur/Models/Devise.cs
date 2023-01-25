@@ -58,5 +58,20 @@ namespace WSConvertisseur.Models
 			NomDevise = nomDevise;
 			Taux = taux;
 		}
-	}
+		
+		/// <summary>
+		/// Vérifie si un objet est égal à cet objet
+		/// </summary>
+		/// <param name="obj">L'objet qu'on veut tester</param>
+		/// <returns>bool</returns>
+		/// <example>"a".Equals("a") = true</example>
+		/// <example>"a".Equals("b") = false</example>
+        public override bool Equals(object? obj)
+        {
+            return obj is Devise devise &&
+                   ID == devise.ID &&
+                   NomDevise == devise.NomDevise &&
+                   Taux == devise.Taux;
+        }
+    }
 }

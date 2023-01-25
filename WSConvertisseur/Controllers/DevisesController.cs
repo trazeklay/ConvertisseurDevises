@@ -7,11 +7,20 @@ using System.Linq;
 
 namespace WSConvertisseur.Controllers
 {
+    /// <summary>
+    /// Le controlleur de la classe 'Devise'
+    /// </summary>
+    /// <returns>DeviseController</returns>
     [Route("api/devises")]
     [ApiController]
     public class DevisesController : ControllerBase
     {
         private List<Devise> lesDevises;
+
+        /// <summary>
+        /// La liste des devises qui est dans l'appi
+        /// </summary>
+        /// <returns>La liste des devises</returns>
         public List<Devise> LesDevises
         {
             get { return lesDevises; }
@@ -73,7 +82,7 @@ namespace WSConvertisseur.Controllers
         /// <response code="400">Put method successfull</response>
         // PUT api/<DevisesController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] Devise devise)
+        public ActionResult<Devise> Put(int id, [FromBody] Devise devise)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
